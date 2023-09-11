@@ -1,0 +1,22 @@
+version: '3'
+services:
+  wyoming-whisper:
+    container_name: wyoming-whisper
+    build: ./whisper
+    volumes:
+      - ./wyoming-addons-gpu/whisper/data:/data
+    restart: always
+    ports:
+      - 10300:10300
+    runtime: nvidia
+    command: --model medium-int8 --language de --device cuda
+  wyoming-piper:
+    container_name: wyoming-piper
+    build: ./piper
+    volumes:
+      - ./wyoming-addons-gpu/piper/data:/data
+    restart: always
+    ports:
+      - 10200:10200
+    runtime: nvidia
+    command: --voice de-kerstin-low
